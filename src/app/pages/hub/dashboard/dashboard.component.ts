@@ -14,6 +14,7 @@ export class DashboardComponent implements OnInit {
 
   blindsSunlight: number = 5; //Scale 0-10
 
+
   gardenMoisture: number = 0; //Scale 0-10
 
   constructor(private wsService: WebsocketService) {
