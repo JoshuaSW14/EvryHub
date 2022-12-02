@@ -1,0 +1,16 @@
+.plant-image img{
+  width: 40%;
+}
+
+.container {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+/* Centered text */
+.centered {
+  position: absolute;
+  top: 80%;
+  left: 51%;
+  transform: translate(-50%, -50%);
+}

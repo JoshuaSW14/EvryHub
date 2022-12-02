@@ -1,1 +1,246 @@
-<p>devices works!</p>
+<div class="flex justify-content-center">
+  <h1>Devices</h1>
+</div>
+
+<div class="flex justify-content-evenly mx-6 dashboard gap-4 flex-column">
+  <!-- Smart Blinds -->
+  <p-card class="col smart-blinds" header="Smart Blinds">
+    <!-- Active Status -->
+    <ng-template pTemplate="header">
+      <i class="pi pi-circle-fill m-2" style="color: green; float: right"></i>
+    </ng-template>
+
+    <div class="flex justify-content-evenly">
+      <div class="chart">
+        <p-chart
+          type="line"
+          [data]="blindsData"
+          [options]="blindsOptions"
+        ></p-chart>
+      </div>
+      <div>
+        <div class="flex justify-content-center p-2">
+          <p-slider
+            [(ngModel)]="blindsSunlight"
+            orientation="vertical"
+            [min]="0"
+            [max]="10"
+            [disabled]="true"
+          ></p-slider>
+        </div>
+
+        <!-- Open/Close Manually -->
+        <div class="flex justify-content-center p-2">
+          <p-selectButton
+            [options]="blindsState"
+            [(ngModel)]="blindsValue"
+            optionLabel="label"
+            optionValue="value"
+            (onChange)="blinds()"
+          ></p-selectButton>
+        </div>
+
+        <!-- Scheduler (radio button for automatic/sunlight threshold/off)-->
+        <div class="flex justify-content-evenly mt-4 flex-column gap-2">
+          <p-radioButton
+            name="blinds"
+            value="auto"
+            [(ngModel)]="radioBlinds"
+            label="Auto"
+            (onClick)="configBlinds()"
+          ></p-radioButton>
+          <p-radioButton
+            name="blinds"
+            value="sunlight"
+            [(ngModel)]="radioBlinds"
+            label="Sunlight"
+            (onClick)="configBlinds()"
+          ></p-radioButton>
+          <p-radioButton
+            name="blinds"
+            value="off"
+            [(ngModel)]="radioBlinds"
+            label="Off"
+            (onClick)="configBlinds()"
+          ></p-radioButton>
+        </div>
+
+        <div
+          class="flex justify-content-evenly mt-3"
+          *ngIf="radioBlinds == 'sunlight'"
+        >
+          <p-inputNumber
+            [(ngModel)]="blindsSunlight"
+            [showButtons]="true"
+            buttonLayout="vertical"
+            spinnerMode="vertical"
+            inputId="vertical"
+            decrementButtonClass="p-button-primary"
+            incrementButtonClass="p-button-primary"
+            incrementButtonIcon="pi pi-plus"
+            decrementButtonIcon="pi pi-minus"
+            (onInput)="configBlinds()"
+            [size]="2"
+          >
+          </p-inputNumber>
+        </div>
+      </div>
+    </div>
+  </p-card>
+
+  <!-- Smart Garden -->
+  <p-card class="col smart-garden" header="Smart Garden">
+    <!-- Active Status -->
+    <ng-template pTemplate="header">
+      <i class="pi pi-circle-fill m-2" style="color: green; float: right"></i>
+    </ng-template>
+
+    <div class="flex justify-content-evenly">
+      <div class="chart">
+        <p-chart
+          type="line"
+          [data]="gardenData"
+          [options]="gardenOptions"
+        ></p-chart>
+      </div>
+      <div>
+        <div class="flex justify-content-center plant-image p-2">
+          <h3 class="centered">{{ currentGardenMoisture }}</h3>
+        </div>
+
+        <!-- Open/Close Manually -->
+        <div class="flex justify-content-center">
+          <p-button label="Water Plant" (onClick)="garden()"></p-button>
+        </div>
+
+        <!-- Scheduler (radio button for automatic/moisture threshold/off)-->
+        <div class="flex justify-content-evenly mt-4 flex-column gap-2">
+          <p-radioButton
+            name="blinds"
+            value="auto"
+            [(ngModel)]="radioGarden"
+            label="Auto"
+            (onClick)="configGarden()"
+          ></p-radioButton>
+          <p-radioButton
+            name="blinds"
+            value="moisture"
+            [(ngModel)]="radioGarden"
+            label="Moisture"
+            (onClick)="configGarden()"
+          ></p-radioButton>
+          <p-radioButton
+            name="blinds"
+            value="off"
+            [(ngModel)]="radioGarden"
+            label="Off"
+            (onClick)="configGarden()"
+          ></p-radioButton>
+        </div>
+
+        <div
+          class="flex justify-content-evenly mt-3"
+          *ngIf="radioGarden == 'moisture'"
+        >
+          <p-inputNumber
+            [(ngModel)]="gardenValue"
+            [showButtons]="true"
+            buttonLayout="vertical"
+            spinnerMode="vertical"
+            inputId="vertical"
+            decrementButtonClass="p-button-primary"
+            incrementButtonClass="p-button-primary"
+            incrementButtonIcon="pi pi-plus"
+            decrementButtonIcon="pi pi-minus"
+            (onInput)="configGarden()"
+            [size]="2"
+          >
+          </p-inputNumber>
+        </div>
+      </div>
+    </div>
+  </p-card>
+
+  <!-- Smart Vent -->
+  <p-card class="col smart-vent" header="Smart Vent">
+    <!-- Active Status -->
+    <ng-template pTemplate="header">
+      <i class="pi pi-circle-fill m-2" style="color: green; float: right"></i>
+    </ng-template>
+
+    <div class="flex justify-content-evenly">
+      <div class="chart">
+        <p-chart
+          type="line"
+          [data]="ventData"
+          [options]="ventOptions"
+        ></p-chart>
+      </div>
+      <div>
+        <div class="flex justify-content-center">
+          <p-knob
+            [(ngModel)]="currentVentTemperature"
+            [readonly]="true"
+          ></p-knob>
+        </div>
+        <div class="flex justify-content-center p-2">
+          <p-selectButton
+            [options]="ventState"
+            [(ngModel)]="ventValue"
+            optionLabel="label"
+            optionValue="value"
+            (onChange)="vent()"
+          ></p-selectButton>
+        </div>
+
+        <!-- Scheduler (radio button for automatic/sunlight threshold/off)-->
+        <div class="flex justify-content-center mt-4 flex-column gap-2">
+          <p-radioButton
+            name="vent"
+            value="auto"
+            [(ngModel)]="radioVent"
+            label="Auto"
+            (onClick)="configVent()"
+          ></p-radioButton>
+          <p-radioButton
+            name="vent"
+            value="temperature"
+            [(ngModel)]="radioVent"
+            label="Temperature"
+            (onClick)="configVent()"
+          ></p-radioButton>
+          <p-radioButton
+            name="vent"
+            value="off"
+            [(ngModel)]="radioVent"
+            label="Off"
+            (onClick)="configVent()"
+          ></p-radioButton>
+        </div>
+
+        <div
+          class="flex justify-content-evenly mt-3"
+          *ngIf="radioVent == 'temperature'"
+        >
+          <p-inputNumber
+            [(ngModel)]="ventTemperature"
+            [showButtons]="true"
+            buttonLayout="vertical"
+            spinnerMode="vertical"
+            inputId="vertical"
+            decrementButtonClass="p-button-primary"
+            incrementButtonClass="p-button-primary"
+            incrementButtonIcon="pi pi-plus"
+            decrementButtonIcon="pi pi-minus"
+            (onInput)="configVent()"
+            [size]="2"
+          >
+          </p-inputNumber>
+        </div>
+      </div>
+    </div>
+  </p-card>
+</div>
+
+<div style="height: 500px">
+</div>

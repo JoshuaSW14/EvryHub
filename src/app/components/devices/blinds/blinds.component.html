@@ -1,1 +1,66 @@
-<p>blinds works!</p>
+<p-card class="col smart-blinds" header="Smart Blinds">
+  <!-- Active Status -->
+  <ng-template pTemplate="header">
+    <i class="pi pi-circle-fill m-2" style="color: green; float: right"></i>
+  </ng-template>
+
+  <div class="flex justify-content-center p-2">
+    <p-slider [(ngModel)]="blindsSunlight" orientation="vertical" [min]="0" [max]="10" [disabled]="true"></p-slider>
+  </div>
+
+  <!-- Open/Close Manually -->
+  <div class="flex justify-content-center pt-2">
+    <p-selectButton
+      [options]="blindsState"
+      [(ngModel)]="blindsValue"
+      optionLabel="label"
+      optionValue="value"
+      (onChange)="blinds()"
+    ></p-selectButton>
+  </div>
+
+  <!-- Scheduler (radio button for automatic/sunlight threshold/off)-->
+  <div class="flex justify-content-evenly mt-3">
+    <p-radioButton
+      name="blinds"
+      value="auto"
+      [(ngModel)]="radioBlinds"
+      label="Auto"
+      (onClick)="configBlinds()"
+    ></p-radioButton>
+    <p-radioButton
+      name="blinds"
+      value="sunlight"
+      [(ngModel)]="radioBlinds"
+      label="Sunlight"
+      (onClick)="configBlinds()"
+    ></p-radioButton>
+    <p-radioButton
+      name="blinds"
+      value="off"
+      [(ngModel)]="radioBlinds"
+      label="Off"
+      (onClick)="configBlinds()"
+    ></p-radioButton>
+  </div>
+
+  <div
+    class="flex justify-content-evenly mt-3"
+    *ngIf="radioBlinds == 'sunlight'"
+  >
+    <p-inputNumber
+      [(ngModel)]="blindsSunlight"
+      [showButtons]="true"
+      buttonLayout="vertical"
+      spinnerMode="vertical"
+      inputId="vertical"
+      decrementButtonClass="p-button-primary"
+      incrementButtonClass="p-button-primary"
+      incrementButtonIcon="pi pi-plus"
+      decrementButtonIcon="pi pi-minus"
+      (onInput)="configBlinds()"
+      [size]="2"
+    >
+    </p-inputNumber>
+  </div>
+</p-card>

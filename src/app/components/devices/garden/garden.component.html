@@ -1,1 +1,63 @@
-<p>garden works!</p>
+<p-card class="col smart-garden" header="Smart Garden">
+  <!-- Active Status -->
+  <ng-template pTemplate="header">
+    <i class="pi pi-circle-fill m-2" style="color: green; float: right"></i>
+  </ng-template>
+
+  <div class="flex justify-content-center plant-image p-2">
+    <div class="container">
+      <img src="assets/plant.png" alt="plant">
+      <h3 class="centered">{{gardenMoisture}}</h3>
+    </div>
+  </div>
+
+  <!-- Open/Close Manually -->
+  <div class="flex justify-content-center">
+    <p-button label="Water Plant" (onClick)="garden()"></p-button>
+  </div>
+
+  <!-- Scheduler (radio button for automatic/moisture threshold/off)-->
+  <div class="flex justify-content-evenly mt-3">
+    <p-radioButton
+      name="blinds"
+      value="auto"
+      [(ngModel)]="radioGarden"
+      label="Auto"
+      (onClick)="configGarden()"
+    ></p-radioButton>
+    <p-radioButton
+      name="blinds"
+      value="moisture"
+      [(ngModel)]="radioGarden"
+      label="Moisture"
+      (onClick)="configGarden()"
+    ></p-radioButton>
+    <p-radioButton
+      name="blinds"
+      value="off"
+      [(ngModel)]="radioGarden"
+      label="Off"
+      (onClick)="configGarden()"
+    ></p-radioButton>
+  </div>
+
+  <div
+    class="flex justify-content-evenly mt-3"
+    *ngIf="radioGarden == 'moisture'"
+  >
+    <p-inputNumber
+      [(ngModel)]="gardenValue"
+      [showButtons]="true"
+      buttonLayout="vertical"
+      spinnerMode="vertical"
+      inputId="vertical"
+      decrementButtonClass="p-button-primary"
+      incrementButtonClass="p-button-primary"
+      incrementButtonIcon="pi pi-plus"
+      decrementButtonIcon="pi pi-minus"
+      (onInput)="configGarden()"
+      [size]="2"
+    >
+    </p-inputNumber>
+  </div>
+</p-card>

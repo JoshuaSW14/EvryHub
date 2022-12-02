@@ -1,1 +1,65 @@
-<p>vent works!</p>
+<p-card class="col smart-vent" header="Smart Vent">
+  <!-- Active Status -->
+  <ng-template pTemplate="header">
+    <i class="pi pi-circle-fill m-2" style="color: green; float: right"></i>
+  </ng-template>
+
+  <div class="flex justify-content-center">
+    <p-knob [(ngModel)]="ventTemperature" [readonly]="true"></p-knob>
+  </div>
+
+  <div class="flex justify-content-center">
+    <p-selectButton
+      [options]="ventState"
+      [(ngModel)]="ventValue"
+      optionLabel="label"
+      optionValue="value"
+      (onChange)="vent()"
+    ></p-selectButton>
+  </div>
+
+  <!-- Scheduler (radio button for automatic/sunlight threshold/off)-->
+  <div class="flex justify-content-evenly mt-4">
+    <p-radioButton
+      name="vent"
+      value="auto"
+      [(ngModel)]="radioVent"
+      label="Auto"
+      (onClick)="configVent()"
+    ></p-radioButton>
+    <p-radioButton
+      name="vent"
+      value="temperature"
+      [(ngModel)]="radioVent"
+      label="Temperature"
+      (onClick)="configVent()"
+    ></p-radioButton>
+    <p-radioButton
+      name="vent"
+      value="off"
+      [(ngModel)]="radioVent"
+      label="Off"
+      (onClick)="configVent()"
+    ></p-radioButton>
+  </div>
+
+  <div
+    class="flex justify-content-evenly mt-3"
+    *ngIf="radioVent == 'temperature'"
+  >
+    <p-inputNumber
+      [(ngModel)]="ventTemperature"
+      [showButtons]="true"
+      buttonLayout="vertical"
+      spinnerMode="vertical"
+      inputId="vertical"
+      decrementButtonClass="p-button-primary"
+      incrementButtonClass="p-button-primary"
+      incrementButtonIcon="pi pi-plus"
+      decrementButtonIcon="pi pi-minus"
+      (onInput)="configVent()"
+      [size]="2"
+    >
+    </p-inputNumber>
+  </div>
+</p-card>
