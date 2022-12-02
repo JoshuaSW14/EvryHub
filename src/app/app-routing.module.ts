@@ -11,7 +11,7 @@ import { SignupComponent } from './pages/signup/signup.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: DashboardComponent },
   {
     path: 'hub',
     component: HubComponent,
