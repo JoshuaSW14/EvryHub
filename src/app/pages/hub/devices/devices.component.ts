@@ -206,14 +206,17 @@ export class DevicesComponent implements OnInit {
 
   configBlinds() {
     var value;
+    var action;
     if (this.radioBlinds == 'sunlight') {
       value = this.blindsValue;
+      action = 'sunlight'
     } else {
       value = this.radioBlinds;
+      action = 'config'
     }
     let message = {
       device: 'blinds',
-      action: 'config',
+      action: action,
       value: value
     };
 
