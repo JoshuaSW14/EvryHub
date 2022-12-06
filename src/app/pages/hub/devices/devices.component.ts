@@ -209,7 +209,7 @@ export class DevicesComponent implements OnInit {
     var action;
     if (this.radioBlinds == 'sunlight') {
       value = this.blindsValue;
-      action = 'sunlight'
+      action = 'threshold'
     } else {
       value = this.radioBlinds;
       action = 'config'
