@@ -207,7 +207,7 @@ export class DevicesComponent implements OnInit {
   configBlinds() {
     var value;
     if (this.radioBlinds == 'sunlight') {
-      value = this.blindsSunlight;
+      value = this.blindsValue;
     } else {
       value = this.radioBlinds;
     }
